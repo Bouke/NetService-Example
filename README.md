@@ -3,6 +3,8 @@
 This example implementation of Bouke/NetService shows how to query for
 Bonjour (mDNS / Zeroconf) services, and also publish your own service.
 
+[![Build Status](https://travis-ci.org/Bouke/NetService-Example.svg?branch=master)](https://travis-ci.org/Bouke/NetService-Example)
+
 ## Usage
 Clone the repository, then run the program;
 
