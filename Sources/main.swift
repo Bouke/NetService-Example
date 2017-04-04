@@ -68,8 +68,7 @@ class MyServiceDelegate: NetServiceDelegate {
     }
 }
 
-// Publish example HomeKit device.
-let ns = NetService(domain: "local.", type: "_hap._tcp.", name: "example", port: 8000)
+let ns = NetService(domain: "local.", type: "_airplay._tcp.", name: "example", port: 8000)
 precondition(ns.setTXTRecord([
     "pv": "1.0", // state
     "id": "11:22:33:44:55:66:77:99", // identifier
@@ -79,19 +78,31 @@ precondition(ns.setTXTRecord([
     "ff": "0", // mfi compliant
     "md": "Swift", // name
     "ci": "1" // category identifier
-]))
+    ]))
 let serviceDelegate = MyServiceDelegate()
 ns.delegate = serviceDelegate
-ns.publish(options: [.listenForConnections])
+
+let ns2 = NetService(domain: "local.", type: "_airplay._tcp.", name: "example2", port: 0)
+ns2.delegate = serviceDelegate
+
+if CommandLine.arguments.contains("--publish") {
+    // Publish example HomeKit device.
+    ns.publish(options: [.listenForConnections])
+    ns2.publish(options: [.listenForConnections])
+}
 
 
 // MARK: - Manage runloop
 
-withExtendedLifetime((browser0, browser1, browserDelegate, ns, serviceDelegate)) {
+withExtendedLifetime((browser0, browser1, browserDelegate, ns, ns2, serviceDelegate)) {
     if CommandLine.arguments.contains("--test") {
         print("Running runloop for 10 seconds...")
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 10))
     } else {
         RunLoop.main.run()
     }
+
+    print("Stopping...")
+    ns.stop()
+    ns2.stop()
 }
