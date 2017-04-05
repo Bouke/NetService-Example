@@ -4,8 +4,6 @@ import class Foundation.RunLoop
 import NetService
 import Socket
 
-var toggle = true
-
 // MARK: - Browse for services
 
 class MyBrowserDelegate: NetServiceBrowserDelegate {
