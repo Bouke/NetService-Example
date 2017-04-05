@@ -102,7 +102,9 @@ withExtendedLifetime((browser0, browser1, browserDelegate, ns, ns2, serviceDeleg
         RunLoop.main.run()
     }
 
-    print("Stopping...")
-    ns.stop()
-    ns2.stop()
+    if CommandLine.arguments.contains("--publish") {
+        print("Stopping...")
+        ns.stop()
+        ns2.stop()
+    }
 }
