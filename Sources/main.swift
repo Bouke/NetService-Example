@@ -11,8 +11,8 @@ class MyBrowserDelegate: NetServiceBrowserDelegate {
         print("Will search: \(browser)")
     }
     
-    func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
-        print("Did not search: \(errorDict)")
+    func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch error: Error) {
+        print("Did not search: \(error)")
     }
     
     public func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
@@ -50,8 +50,8 @@ class MyServiceDelegate: NetServiceDelegate {
         print("Did publish: \(sender)")
     }
     
-    func netService(_ sender: NetService, didNotPublish errorDict: [String : NSNumber]) {
-        print("Did not publish: \(sender), because: \(errorDict)")
+    func netService(_ sender: NetService, didNotPublish error: Error) {
+        print("Did not publish: \(sender), because: \(error)")
     }
     
     func netServiceDidStop(_ sender: NetService) {
